@@ -5,16 +5,45 @@ Todos os grupos devem implementar em Python um jogo chamado *Don't Look Down*. E
 
 ## Contexto do Jogo
 
-*Don't look down* é um *roguelike* inspirado no jogo [Downwell](https://store.steampowered.com/app/360740/Downwell/), onde o objetivo é obter a maior pontuação possível. O jogador controla um boneco chamado *fallguy* que está em queda constante, onde o objetivo é evitar inimigos e armadilhas que aparecem pelo caminho.
+*Don't look down* é um *roguelike* inspirado no jogo [Downwell](https://store.steampowered.com/app/360740/Downwell/), onde o objetivo é obter a maior pontuação possível. O jogador controla um boneco chamado *fallguy* que está em queda livre, onde o objetivo é evitar inimigos e armadilhas que aparecem pelo caminho, e *aguentar* o mais tempo possível. 
 
-![Interface of the Game](figures/Interface.png)
+![Game Screen](figures/GameScreen.png)
 
 ### Objectivo do Jogo
 
+O objectivo deste jogo é simplesmente sobreviver o maior tempo possível, evitando os obstaculos que vão aparecendo pelo caminho do jogador. 
 
 ### Descrição Técnica
 
+Esta secção descreve as funcionalidades **core** do jogo. 
+
+#### Gameplay
+
+O jogo joga-se com o teclado usando as setas (exclusivamente esquerda e direita). É importante realçar que **o jogador está constantemente em queda livre**, com a excepção de plataformas sem armadilha.
+
+![Player Movement](figures/GameScreen.png)
+
+##### Death
+
+Se o jogador cair em cima ou tocar numa armadilha, o jogador *morre* perdendo uma vida. Quando o numero total de vidas chegar a 0 o jogo deve mostrar o ecrã de *Game Over*. O jogador começa com 3 vidas.
+
+##### Point Scoring
+
+Os pontos do jogo estão interligados diretamente ao tempo de jogo total. A cada segundo de jogo é adicionado 1 ponto ao score total do jogador. 
+
+##### Bullets
+
+O jogador tem acesso a um total de 3 *bullets* que permite "destruir" uma plataforma inteira ajudando o jogador a passar através desta sem dano. O bullet também permite reduzir a velocidade de queda do jogador permitindo fazer manobras mais precisas se necessario.
+
+Para usar bullets o jogador usa o *spacebar* (tecla espaço), no qual dispara uma esfera diretamente abaixo do *fallguy* a uma velocidade elevada comparativamente ao do jogador, e diminui a velocidade de queda do jogador durante 1.5 segundos. Se a esfera collidir com uma armadilha este é distruida por completo, deixando o jogador atravesá-la.
+
+O jogador tem um total de 3 balas, cada bala tem um tempo de regeneração de 2.5 segundos. Se não houver balas, o jogador não pode disparar. 
+
 #### Interface
+
+O User Interface deverá apresentar o numero de vidas do jogador (3 no total), o total de pontos acumulado e o número de balas corrente. 
+
+![Game UI](figures/GameUI.png)
 
 ##### Start Screen
 
