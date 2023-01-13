@@ -5,6 +5,9 @@ Todos os grupos devem implementar em Python um jogo chamado *Don't Look Down*. E
 
 ## Contexto do Jogo
 
+*Don't look down* é um *roguelike* inspirado no jogo [Downwell](https://store.steampowered.com/app/360740/Downwell/), onde o objetivo é obter a maior pontuação possível. O jogador controla um boneco chamado *fallguy* que está em queda constante, onde o objetivo é evitar inimigos e armadilhas que aparecem pelo caminho.
+
+![Interface of the Game](figures/Interface.png)
 
 ### Objectivo do Jogo
 
