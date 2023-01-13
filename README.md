@@ -21,7 +21,7 @@ Esta secção descreve as funcionalidades **core** do jogo.
 
 O jogo joga-se com o teclado usando as setas (exclusivamente esquerda e direita). É importante realçar que **o jogador está constantemente em queda livre**, com a excepção de plataformas sem armadilha.
 
-![Player Movement](figures/GameScreen.png)
+![Player Movement](figures/GameMov.png)
 
 ##### Death
 
