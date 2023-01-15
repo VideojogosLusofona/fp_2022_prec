@@ -1,6 +1,6 @@
 # Projeto de Recurso de Fundamentos de Programação 2022/2023
 
-** LER COM ATENÇÃO O ENUNCIADO ANTES DE IMPLEMENTAR! **
+**LER COM ATENÇÃO O ENUNCIADO ANTES DE IMPLEMENTAR!**
 
 ## Introdução 
 Todos os grupos devem implementar em Python um jogo chamado *Don't Look Down*. Este jogo necessita **obrigatóriamente** interface gráfica em PyGame.
