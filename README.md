@@ -1,5 +1,7 @@
 # Projeto de Recurso de Fundamentos de Programação 2022/2023
 
+** LER COM ATENÇÃO O ENUNCIADO ANTES DE IMPLEMENTAR! **
+
 ## Introdução 
 Todos os grupos devem implementar em Python um jogo chamado *Don't Look Down*. Este jogo necessita **obrigatóriamente** interface gráfica em PyGame.
 
@@ -15,7 +17,7 @@ O objectivo deste jogo é simplesmente sobreviver o maior tempo possível, evita
 
 ### Descrição Técnica
 
-Esta secção descreve as funcionalidades **core** do jogo. 
+Esta secção descreve as funcionalidades **core** do jogo. O jogo joga-se com uma resolução de 900x600 (900px de altura e 600px de largura). 
 
 #### Gameplay
 
@@ -25,7 +27,9 @@ O jogo joga-se com o teclado usando as setas (exclusivamente esquerda e direita)
 
 ##### Death
 
-Se o jogador cair em cima ou tocar numa armadilha, o jogador *morre* perdendo uma vida. Quando o numero total de vidas chegar a 0 o jogo deve mostrar o ecrã de *Game Over*. O jogador começa com 3 vidas.
+Se o jogador cair em cima ou tocar numa armadilha, o jogador *morre* perdendo uma vida. Quando o numero total de vidas chegar a 0 o jogo deve mostrar o ecrã de *Game Over*. Após cerca de 2 segundos, o ecrã passa a mostrar o *Leaderboard* (ver abaixo), caso o jogador tiver pontuação suficiente permite inserir as suas siglas. Após de cerca de 2 segundos no ecrã do *Leaderboard* o jogo volta para o *Start* (ver abaixo). 
+
+O jogador começa com 3 vidas.
 
 ##### Point Scoring
 
@@ -33,11 +37,60 @@ Os pontos do jogo estão interligados diretamente ao tempo de jogo total. A cada
 
 ##### Bullets
 
-O jogador tem acesso a um total de 3 *bullets* que permite "destruir" uma plataforma inteira ajudando o jogador a passar através desta sem dano. O bullet também permite reduzir a velocidade de queda do jogador permitindo fazer manobras mais precisas se necessario.
+O jogador tem acesso a um total de 3 *bullets* que permite "destruir" *tiles* e *traps* (ver abaixo) ajudando o jogador a passar através destas sem dano. O bullet também permite reduzir a velocidade de queda do jogador permitindo fazer manobras mais precisas se necessario.
 
-Para usar bullets o jogador usa o *spacebar* (tecla espaço), no qual dispara uma esfera diretamente abaixo do *fallguy* a uma velocidade elevada comparativamente ao do jogador, e diminui a velocidade de queda do jogador durante 1.5 segundos. Se a esfera collidir com uma armadilha este é distruida por completo, deixando o jogador atravesá-la.
+Para usar bullets o jogador usa o *spacebar* (tecla espaço), no qual dispara uma esfera diretamente abaixo do *fallguy* a uma velocidade elevada comparativamente ao do jogador. O projetil segue uma linha recta de cima para baixo do local onde foi disparado. Se a esfera collidir com uma armadilha este é distruida por completo, deixando o jogador atravesá-la. Ao disparar o bullet o jogador irá diminui immediatamente a velocidade de queda durante um intervalo especificado pelo aluno. 
 
-O jogador tem um total de 3 balas, cada bala tem um tempo de regeneração de 2.5 segundos. Se não houver balas, o jogador não pode disparar. 
+O jogador tem um total de 3 balas, cada bala tem um tempo de regeneração (definido pelo aluno). Se não houver balas, o jogador não pode disparar. 
+
+#### Nivel e Sistema Procedural 
+
+Este jogo segue uma mecânica ao estilo *endless runner*, ou seja o jogo segue um modelo *infinito* até o jogador falhar. Considerando este aspeto é necessário criar um sistema de geração de obstaculos procedural, ou seja a medida que o jogo avança o sistema vai dinâmicamente colocando obstaculos.
+
+##### Configuração do Nivel
+
+O nivel está configurado para alojar *tiles* de 50x50px, onde cabe 12 e 18 tiles em largura e altura, respectivamente.
+
+![Level Configuration](figures/ScreenSize.png)
+
+A area de jogo consiste nos 10 tiles mais à esquerda, enquanto as ultimos 2 tiles estão reservados para o UI do jogo. Na área de jogo a coluna mais à esquerda e a coluna mais à direita estão reservadas para os muros (area onde o jogador não pode passar através, nem destruir). Estes muros define o limite da área de jogo. 
+ 
+##### Tiles
+
+Como referido todos os tiles consiste num quadrado 50x50 px com um pre-desposição fixa. Se um jogador aterrar num tile, este não morre ou perde vida e pode andar em cima deste se existir outros tiles vizinhos. 
+
+**Se um jogador cair em cima de um tile vazio o score para immediatamente e só continua quando este voltar em queda livre.**
+
+![Level Configuration](figures/Platforms.png)
+
+Todos os tiles podem ser arranjadas de qualquer forma no nível, no entanto é necessário **garantir que todas estejam alinhadas com os tiles das paredes**. É necessário realçar que todos os tiles têm que ter um detector de colisões, para o caso do jogador colidir com estas o jogo saber o que fazer.
+
+**Importante** é necessário ter sempre em atenção que cada secção do nível tem que ser *possível* ou seja, o algoritmo não pode gerar situações impossiveis para o jogador (ver abaixo).
+
+##### Tipos de Obstaculos
+
+Cada obstaculo consiste numa sequencia de tiles modificadas com um risco direto para o jogador. Para o jogo básico basta implementar o *Spiked Trap*, enquanto o *Hedgehog Trap* consiste em pontuação extra para o aluno.
+
+**Spiked Traps**
+
+O *Spike Trap* é uma armadilha estática, que consiste num conjunto de tiles com triangulos:
+
+![Spike Trap](figures/SpikeTraps.png)
+
+Se o jogador cair em cima de uma destas armadilhas este perde immediatamente uma vida fazendo *reset* ao jogo, ou no caso das vidas ficarem a 0 mostra o ecrã de *Game Over*. 
+
+**Hedgehog Trap* (Pontuação Extra)
+
+O **Hedgehog Trap** consiste numa armadilha dinâmica onde um pequeno ouriço vai-se movendo a uma velocidade constante da esquerda e para a direita, obrigando o jogador a não ficar demasiado tempo em cima de uma plataforma.
+
+![Hedgehog Trap](figures/HedgeTraps.png)
+
+
+##### Garantia de Possibilidade
+
+Para garantir que o jogo é sempre possível é necessario limitar o algoritmo de colacação de tiles. Uma forma simples de garantir possibilidade é nunca deixar o algoritmo encher uma linha com mais de 6 tiles (ou seja deixar sempre um *gap* para o jogador passar). 
+
+É também necessario limitar a colocação de tiles a nivel de altura para dar tempo ao jogador reagir às mudanças do cenário, no entanto esta configuração irá depender totalmente na implementação de cada aluno, já que irá depender na rapidez da queda livre e da translação definida. Por isso façam o playtest!
 
 #### Interface
 
@@ -47,23 +100,21 @@ O User Interface deverá apresentar o numero de vidas do jogador (3 no total), o
 
 ##### Start Screen
 
+Ao iniciar o jogo, é necessário apresentar um "Start Screen" com três opções: *Start*, *Leaderboard* e *Quit*. 
 
-##### Game Over & Leaderboard
+**Start** inícia o jogo seguindo o processo definido acima. 
 
+**Leaderboard** mostra o os 10 jogadores com melhor pontuação durante 2 a 3 segundos, após retorna ao *Start*.
 
-#### Início do Jogo
+**Quit** termina o processo do jogo.  
 
-#### Controlar a Nave
+##### Game Over
 
-#### Mecânicas dos Cometas
+O ecrã de Game Over consiste apenas num ecrã com as palavras Game Over em letras grandes, durante um total de tempo de 2 a 3 segundos.
 
-#### Detecção de Colisões
+##### Leaderboard
 
-
-#### Limites do Mundo (Wrap-Around)
-
-
-#### Leaderboard
+O leaderboard deve guardar as iniciais e score dos 10 melhores jogadores até à data. O jogo deve pedir as iniciais do jogador caso o score obtido no final for maior do que ultimo valor presente no leaderboard. Este ecrã é mostrado em duas instâncias, se for selecionado pelo jogador no *Start Screen* ou depois do ecrã de *Game Over*. Para ambas as instancias o ecrã deve ser mostrado até o utilizador carregar no enter ou durante um total de 3 a 5 segundos.
 
 O leaderboard deverá ser permanente (mesmo quando se desliga o jogo), e para isso é necessário escrever para um ficheiro os valores destes. Para tal é necessario usar funções de read e write para um ficheiro de texto que irá ser guardado na pasta local do jogo. Funções uteis para ver:
 
@@ -97,17 +148,38 @@ Este projeto tem os seguintes objetivos:
     -   Referências, incluindo trocas de ideias com colegas, código aberto reutilizado (e.g., do StackOverflow) e bibliotecas de terceiros utilizadas. Devem ser o mais detalhados possível.
     -   **Nota:** o relatório deve ser simples e breve, com informação mínima e suficiente para que seja possível ter uma boa ideia do que foi feito. Atenção aos erros ortográficos e à correta formatação [Markdown](https://guides.github.com/features/mastering-markdown/), pois ambos serão tidos em conta na nota final.
 
-O projeto tem um peso de 5 valores na nota final da disciplina e será avaliado de forma qualitativa. Isto significa que todos os objetivos têm de ser parcialmente ou totalmente cumpridos. A cada objetivo, O1 a O5, será atribuída uma nota entre 0 e 1. A nota do projeto será dada pela seguinte fórmula:
+O projeto tem um peso de 12 valores na nota final da disciplina e será avaliado de forma qualitativa. Isto significa que todos os objetivos têm de ser parcialmente ou totalmente cumpridos. A cada objetivo, O1 a O5, será atribuída uma nota entre 0 e 1. A nota do projeto será dada pela seguinte fórmula:
 
-_N = 5 x O1 x O2 x O3 x O4 x O5_
+_N = 12 x O1 x O2 x O3 x O4 x O5_
 
 Isto significa que se os alunos ignorarem completamente um dos objetivos, não tenham feito nada no projeto ou não comparecerem na discussão, a nota final será zero.
 
+### Notas Relativo a Época de Recurso/Especial
+
+A avaliação para época de recurso/especial consiste em ambas numa avaliação prática e teórica (através de teste). **Para garantir passagem para a componente teórica, e passagem à disciplina, o aluno terá que necessáriamente ter uma nota mínima de 9.5 no projeto.**
+
 ### Requisito Mínimo do Projeto
+
+Tudo descrito no enunciado são as funcionalidades minimas para este projeto (com a excepção do que está definido como pontuação extra), e isto inclui:
+
+- Interface de Jogo
+- Sistema de Menus
+- Gameplay - Queda Livre
+- Gameplay - Sistema de Alocação de Tiles
+- Gameplay - Spiked Traps
+- Gameplay - Bullets e Destruição de Tiles
+- Gameplay - Vidas
+- Leaderboards Persistentes
 
 ### Pontuação Extra
 
 **Importante**: Façam o minimo requerido primeiro antes de tentarem fazer mais funcionalidades!
+
+- Hedgehog Traps
+- Animações de jogador 
+- Graficos e Sistema de Particulas
+- Audio e Efeitos Sonoros
+- Conteúdo Extra (e.g. Traps Diferentes, ou Mecânicas)
 
 ## Entrega
 O projeto deve ser entregue pelo aluno via Moodle até às **23:59** do dia **3 de Fevereiro 2023**. O aluno deve submeter um ficheiro `zip` com a solução completa, nomeadamente:
