@@ -59,7 +59,7 @@ Se o jogador cair em cima de uma destas armadilhas este perde immediatamente uma
 
 #### Interface
 
-O User Interface deverá apresentar o numero de vidas do jogador (3 no total), o total de pontos acumulado e o número de balas corrente. 
+O User Interface deverá apresentar o numero de vidas do jogador (3 no total), o total de pontos acumulado e o número *bullets* (caso implementado). 
 
 ![Game UI](figures/GameGUI.png)
 
