@@ -35,7 +35,7 @@ O jogador começa com 3 vidas.
 
 Os pontos do jogo estão interligados diretamente ao tempo de jogo total. A cada segundo de jogo é adicionado 1 ponto ao score total do jogador. 
 
-##### Bullets
+##### Bullets (Pontos Extra)
 
 O jogador tem acesso a um total de 3 *bullets* que permite "destruir" *tiles* e *traps* (ver abaixo) ajudando o jogador a passar através destas sem dano. O bullet também permite reduzir a velocidade de queda do jogador permitindo fazer manobras mais precisas se necessario.
 
@@ -55,19 +55,13 @@ O nivel está configurado para alojar *tiles* de 50x50px, onde cabe 12 e 18 tile
 
 A area de jogo consiste nos 10 tiles mais à esquerda, enquanto as ultimos 2 tiles estão reservados para o UI do jogo. Na área de jogo a coluna mais à esquerda e a coluna mais à direita estão reservadas para os muros (area onde o jogador não pode passar através, nem destruir). Estes muros define o limite da área de jogo. 
  
-##### Tiles
+##### Tiles e Obstaculos
 
-Como referido todos os tiles consiste num quadrado 50x50 px com um pre-desposição fixa. Se um jogador aterrar num tile, este não morre ou perde vida e pode andar em cima deste se existir outros tiles vizinhos. 
-
-**Se um jogador cair em cima de um tile vazio o score para immediatamente e só continua quando este voltar em queda livre.**
+Como referido todos os tiles consiste num quadrado 50x50 px com um pre-desposição fixa.
 
 ![Level Configuration](figures/Platforms.png)
 
-Todos os tiles podem ser arranjadas de qualquer forma no nível, no entanto é necessário **garantir que todas estejam alinhadas com os tiles das paredes**. É necessário realçar que todos os tiles têm que ter um detector de colisões, para o caso do jogador colidir com estas o jogo saber o que fazer.
-
-**Importante** é necessário ter sempre em atenção que cada secção do nível tem que ser *possível* ou seja, o algoritmo não pode gerar situações impossiveis para o jogador (ver abaixo).
-
-##### Tipos de Obstaculos
+Todos os tiles podem ser arranjadas de qualquer forma no nível, no entanto é necessário **garantir que todas estejam alinhadas com os tiles das paredes**.
 
 Cada obstaculo consiste numa sequencia de tiles modificadas com um risco direto para o jogador. Para o jogo básico basta implementar o *Spiked Trap*, enquanto o *Hedgehog Trap* consiste em pontuação extra para o aluno.
 
@@ -85,7 +79,6 @@ O **Hedgehog Trap** consiste numa armadilha dinâmica onde um pequeno ouriço va
 
 ![Hedgehog Trap](figures/HedgeTraps.png)
 
-
 ##### Garantia de Possibilidade
 
 Para garantir que o jogo é sempre possível é necessario limitar o algoritmo de colacação de tiles. Uma forma simples de garantir possibilidade é nunca deixar o algoritmo encher uma linha com mais de 6 tiles (ou seja deixar sempre um *gap* para o jogador passar). 
@@ -96,7 +89,7 @@ Para garantir que o jogo é sempre possível é necessario limitar o algoritmo d
 
 O User Interface deverá apresentar o numero de vidas do jogador (3 no total), o total de pontos acumulado e o número de balas corrente. 
 
-![Game UI](figures/GameUI.png)
+![Game UI](figures/GameGUI.png)
 
 ##### Start Screen
 
