@@ -35,37 +35,19 @@ O jogador começa com 3 vidas.
 
 Os pontos do jogo estão interligados diretamente ao tempo de jogo total. A cada segundo de jogo é adicionado 1 ponto ao score total do jogador. 
 
-##### Bullets (Pontos Extra)
-
-O jogador tem acesso a um total de 3 *bullets* que permite "destruir" *tiles* e *traps* (ver abaixo) ajudando o jogador a passar através destas sem dano. O bullet também permite reduzir a velocidade de queda do jogador permitindo fazer manobras mais precisas se necessario.
-
-Para usar bullets o jogador usa o *spacebar* (tecla espaço), no qual dispara uma esfera diretamente abaixo do *fallguy* a uma velocidade elevada comparativamente ao do jogador. O projetil segue uma linha recta de cima para baixo do local onde foi disparado. Se a esfera collidir com uma armadilha este é distruida por completo, deixando o jogador atravesá-la. Ao disparar o bullet o jogador irá diminui immediatamente a velocidade de queda durante um intervalo especificado pelo aluno. 
-
-O jogador tem um total de 3 balas, cada bala tem um tempo de regeneração (definido pelo aluno). Se não houver balas, o jogador não pode disparar. 
-
-#### Nivel e Sistema Procedural 
-
-Este jogo segue uma mecânica ao estilo *endless runner*, ou seja o jogo segue um modelo *infinito* até o jogador falhar. Considerando este aspeto é necessário criar um sistema de geração de obstaculos procedural, ou seja a medida que o jogo avança o sistema vai dinâmicamente colocando obstaculos.
-
-##### Configuração do Nivel
+#### O Nivel 
 
 O nivel está configurado para alojar *tiles* de 50x50px, onde cabe 12 e 18 tiles em largura e altura, respectivamente.
 
 ![Level Configuration](figures/ScreenSize.png)
 
-A area de jogo consiste nos 10 tiles mais à esquerda, enquanto as ultimos 2 tiles estão reservados para o UI do jogo. Na área de jogo a coluna mais à esquerda e a coluna mais à direita estão reservadas para os muros (area onde o jogador não pode passar através, nem destruir). Estes muros define o limite da área de jogo. 
- 
-##### Tiles e Obstaculos
+A area de jogo consiste nos 10 tiles mais à esquerda, enquanto as ultimos 2 tiles estão reservados para o UI do jogo. Na área de jogo a coluna mais à esquerda e a coluna mais à direita estão reservadas para os muros (area onde o jogador não pode passar através, nem destruir). Estes muros define o limite da area de jogo.
 
-Como referido todos os tiles consiste num quadrado 50x50 px com um pre-desposição fixa.
+A configuração do nivel fica ao critério de cada aluno, no entanto é obrigatório incluir no minimo 25 instancias do tipo *traps* (ver abaixo). Todos os tiles podem ser arranjadas de qualquer forma no nível, no entanto é necessário **garantir que todas estejam alinhadas com os tiles das paredes**.
 
-![Level Configuration](figures/Platforms.png)
+Cada obstaculo consiste numa sequencia de tiles modificadas com um risco direto para o jogador. Para o jogo básico basta implementar o *Spiked Trap*, enquanto o *Hedgehog Trap* consiste em pontuação extra para o aluno (ver pontuação extra).
 
-Todos os tiles podem ser arranjadas de qualquer forma no nível, no entanto é necessário **garantir que todas estejam alinhadas com os tiles das paredes**.
-
-Cada obstaculo consiste numa sequencia de tiles modificadas com um risco direto para o jogador. Para o jogo básico basta implementar o *Spiked Trap*, enquanto o *Hedgehog Trap* consiste em pontuação extra para o aluno.
-
-**Spiked Traps**
+##### Spiked Traps
 
 O *Spike Trap* é uma armadilha estática, que consiste num conjunto de tiles com triangulos:
 
@@ -73,17 +55,7 @@ O *Spike Trap* é uma armadilha estática, que consiste num conjunto de tiles co
 
 Se o jogador cair em cima de uma destas armadilhas este perde immediatamente uma vida fazendo *reset* ao jogo, ou no caso das vidas ficarem a 0 mostra o ecrã de *Game Over*. 
 
-**Hedgehog Trap* (Pontuação Extra)
-
-O **Hedgehog Trap** consiste numa armadilha dinâmica onde um pequeno ouriço vai-se movendo a uma velocidade constante da esquerda e para a direita, obrigando o jogador a não ficar demasiado tempo em cima de uma plataforma.
-
-![Hedgehog Trap](figures/HedgeTraps.png)
-
-##### Garantia de Possibilidade
-
-Para garantir que o jogo é sempre possível é necessario limitar o algoritmo de colacação de tiles. Uma forma simples de garantir possibilidade é nunca deixar o algoritmo encher uma linha com mais de 6 tiles (ou seja deixar sempre um *gap* para o jogador passar). 
-
-É também necessario limitar a colocação de tiles a nivel de altura para dar tempo ao jogador reagir às mudanças do cenário, no entanto esta configuração irá depender totalmente na implementação de cada aluno, já que irá depender na rapidez da queda livre e da translação definida. Por isso façam o playtest!
+**Nota**: Cabe ao aluno de configurar o seu nível de forma a que o jogo seja minimamente possível para o jogador considerando os parâmetros da queda livre e do movimento. Ou seja, tentem não criar sequências extremamente dificeis ou impossíveis. 
 
 #### Interface
 
@@ -154,8 +126,8 @@ Tudo descrito no enunciado são as funcionalidades minimas para este projeto (co
 
 - Interface de Jogo
 - Sistema de Menus
+- Um nível completo (cerca de ~60 segundos de jogo).
 - Gameplay - Queda Livre
-- Gameplay - Sistema de Alocação de Tiles
 - Gameplay - Spiked Traps
 - Gameplay - Vidas
 - Leaderboards Persistentes
@@ -164,12 +136,30 @@ Tudo descrito no enunciado são as funcionalidades minimas para este projeto (co
 
 **Importante**: Façam o minimo requerido primeiro antes de tentarem fazer mais funcionalidades!
 
-- Gameplay - Bullets e Destruição de Tiles
-- Hedgehog Traps
-- Animações de jogador 
-- Graficos e Sistema de Particulas
-- Audio e Efeitos Sonoros
-- Conteúdo Extra (e.g. Traps Diferentes, ou Mecânicas)
+#### Bullets (Pontução Extra)
+
+O jogador tem acesso a um total de 3 *bullets* que permite "destruir" *tiles* e *traps* (ver abaixo) ajudando o jogador a passar através destas sem dano. O bullet também permite reduzir a velocidade de queda do jogador permitindo fazer manobras mais precisas se necessario.
+
+Para usar bullets o jogador usa o *spacebar* (tecla espaço), no qual dispara uma esfera diretamente abaixo do *fallguy* a uma velocidade elevada comparativamente ao do jogador. O projetil segue uma linha recta de cima para baixo do local onde foi disparado. Se a esfera collidir com uma armadilha este é distruida por completo, deixando o jogador atravesá-la. Ao disparar o bullet o jogador irá diminui immediatamente a velocidade de queda durante um intervalo especificado pelo aluno. 
+
+O jogador tem um total de 3 balas, cada bala tem um tempo de regeneração (definido pelo aluno). Se não houver balas, o jogador não pode disparar. 
+
+#### **Hedgehog Trap* (Pontuação Extra)
+
+O **Hedgehog Trap** consiste numa armadilha dinâmica onde um pequeno ouriço vai-se movendo a uma velocidade constante da esquerda e para a direita, obrigando o jogador a não ficar demasiado tempo em cima de uma plataforma.
+
+![Hedgehog Trap](figures/HedgeTraps.png)
+
+#### Nivel Procedural (Pontuação Extra)
+
+Criar um nivel infinito em que os tiles são alocados de uma forma dinâmica. Neste caso é importante considerar que o aluno tem que garantir que o que é gerado pelo algoritmo é possível, e que não cria cenários impossíveis. 
+
+##### Garantia de Possibilidade
+
+Para garantir que o jogo é sempre possível é necessario limitar o algoritmo de colacação de tiles. Uma forma simples de garantir possibilidade é nunca deixar o algoritmo encher uma linha com mais de 6 tiles (ou seja deixar sempre um *gap* para o jogador passar). 
+
+É também necessario limitar a colocação de tiles a nivel de altura para dar tempo ao jogador reagir às mudanças do cenário, no entanto esta configuração irá depender totalmente na implementação de cada aluno, já que irá depender na rapidez da queda livre e da translação definida. Por isso façam o playtest!
+
 
 ## Entrega
 O projeto deve ser entregue pelo aluno via Moodle até às **23:59** do dia **3 de Fevereiro 2023**. O aluno deve submeter um ficheiro `zip` com a solução completa, nomeadamente:
