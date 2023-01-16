@@ -114,9 +114,6 @@ O leaderboard deverá ser permanente (mesmo quando se desliga o jogo), e para is
 - [Read File](https://www.w3schools.com/python/python_file_open.asp)
 - [Write File](https://www.w3schools.com/python/python_file_write.asp)
 
-### Referências
-
-
 ## Objetivos e Critério de Avaliação
 
 Este projeto tem os seguintes objetivos:
@@ -160,7 +157,6 @@ Tudo descrito no enunciado são as funcionalidades minimas para este projeto (co
 - Gameplay - Queda Livre
 - Gameplay - Sistema de Alocação de Tiles
 - Gameplay - Spiked Traps
-- Gameplay - Bullets e Destruição de Tiles
 - Gameplay - Vidas
 - Leaderboards Persistentes
 
@@ -168,6 +164,7 @@ Tudo descrito no enunciado são as funcionalidades minimas para este projeto (co
 
 **Importante**: Façam o minimo requerido primeiro antes de tentarem fazer mais funcionalidades!
 
+- Gameplay - Bullets e Destruição de Tiles
 - Hedgehog Traps
 - Animações de jogador 
 - Graficos e Sistema de Particulas
